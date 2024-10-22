@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+using namespace std;
 
 // Abstract base class for controllable devices
 class IControllable {
@@ -19,15 +20,15 @@ public:
 // Abstract base class for devices that can be monitored
 class IMonitorable {
 protected:
-    std::string status;
+    string status;
 
 public:
     IMonitorable() : status("Unknown") {}
     virtual ~IMonitorable() = default;
     
     // Pure virtual methods creating interface
-    virtual std::string getStatus() const = 0;
-    virtual void updateStatus(const std::string& newStatus) = 0;
+    virtual string getStatus() const = 0;
+    virtual void updateStatus(const string& newStatus) = 0;
 };
 
 // Concrete class inheriting from both interfaces
@@ -42,12 +43,12 @@ public:
     // Implementing IControllable interface
     void turnOn() override {
         powerState = true;
-        std::cout << "Thermostat turned on\n";
+        cout << "Thermostat turned on\n";
     }
 
     void turnOff() override {
         powerState = false;
-        std::cout << "Thermostat turned off\n";
+        cout << "Thermostat turned off\n";
     }
 
     bool isPowered() const override {
@@ -55,22 +56,22 @@ public:
     }
 
     // Implementing IMonitorable interface
-    std::string getStatus() const override {
+    string getStatus() const override {
         return status;
     }
 
-    void updateStatus(const std::string& newStatus) override {
+    void updateStatus(const string& newStatus) override {
         status = newStatus;
-        std::cout << "Thermostat status updated to: " << status << "\n";
+        cout << "Thermostat status updated to: " << status << "\n";
     }
 
     // Additional thermostat-specific methods
     void setTemperature(double temp) {
         if (isPowered()) {
             targetTemperature = temp;
-            updateStatus("Adjusting temperature to " + std::to_string(temp));
+            updateStatus("Adjusting temperature to " + to_string(temp));
         } else {
-            std::cout << "Cannot set temperature: device is powered off\n";
+            cout << "Cannot set temperature: device is powered off\n";
         }
     }
 
@@ -95,13 +96,13 @@ public:
     void turnOn() override {
         powerState = true;
         brightness = 100;
-        std::cout << "Light turned on\n";
+        cout << "Light turned on\n";
     }
 
     void turnOff() override {
         powerState = false;
         brightness = 0;
-        std::cout << "Light turned off\n";
+        cout << "Light turned off\n";
     }
 
     bool isPowered() const override {
@@ -109,24 +110,24 @@ public:
     }
 
     // Implementing IMonitorable interface
-    std::string getStatus() const override {
+    string getStatus() const override {
         return status;
     }
 
-    void updateStatus(const std::string& newStatus) override {
+    void updateStatus(const string& newStatus) override {
         status = newStatus;
-        std::cout << "Light status updated to: " << status << "\n";
+        cout << "Light status updated to: " << status << "\n";
     }
 
     // Light-specific methods
     void setBrightness(int level) {
         if (isPowered() && level >= 0 && level <= 100) {
             brightness = level;
-            updateStatus("Brightness set to " + std::to_string(level) + "%");
+            updateStatus("Brightness set to " + to_string(level) + "%");
         } else if (!isPowered()) {
-            std::cout << "Cannot set brightness: device is powered off\n";
+            cout << "Cannot set brightness: device is powered off\n";
         } else {
-            std::cout << "Invalid brightness level\n";
+            cout << "Invalid brightness level\n";
         }
     }
 
@@ -160,7 +161,7 @@ int main() {
 
     IMonitorable* monitorableDevices[] = {&thermostat, &light};
     for (auto device : monitorableDevices) {
-        std::cout << "Device status: " << device->getStatus() << "\n";
+        cout << "Device status: " << device->getStatus() << "\n";
     }
 
     return 0;
