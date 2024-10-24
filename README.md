@@ -20,3 +20,5 @@ This program demonstrates several important OOP concepts:
    - Protected members in base classes
 
 The program models a smart home system where devices can be both controlled and monitored. 
+
+[UML Diagram](https://claude.site/artifacts/2807d59e-f5ad-428c-92e3-16628213ed69)
